@@ -2,13 +2,13 @@
 
 class ExcerToLocalStorage{
     init(){
-        this.excercizes = $(".exercize");
+        this.excercises = $(".excercise");
         this.events();
     }
 
     events(){
-        $("button").on("click",(e)=>{
-            ExcerToLocalStorage.count(this.excercizes);
+        $(".save").on("click",(e)=>{
+            ExcerToLocalStorage.count(this.excercises);
         })
     }
 
@@ -44,7 +44,33 @@ class ExcerToLocalStorage{
     }
 }
 
+class addDelExcercise {
+
+    init(){
+        this.addButton = $(".add");
+        this.delButton = $(".del");
+        this.addExcInput = $(".addExc");
+        this.events();
+    }
+
+    events(){
+        this.addButton.on("click",(e)=>{
+            addDelExcercise.addExcercise(this.addExcInput)
+        })
+    }
+
+    static addExcercise(elem){
+       let $excDiv = $("<div class='excercise'>");
+       let $task = $("<div class='task'>")
+       $task.text(elem.val());
+       $excDiv.append("<input type='checkbox'>",$task)
+       $(".save").before($excDiv);
+    }
+}
+
 let $percent = new ExcerToLocalStorage()
+let $addDel = new addDelExcercise();
 $(document).ready(()=>{
     $percent.init();
+    $addDel.init();
 });
