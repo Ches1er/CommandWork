@@ -32,8 +32,15 @@ class ExcerToLocalStorage{
     }
 
     static putToTheLocalStorage(excercise){
+        let dateOptions = {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+        }
+        let date = new Date().toLocaleString("ru", dateOptions);
+        console.log(date);
         let excerJSON = JSON.stringify(excercise);
-        localStorage.setItem("201018",excerJSON);
+        localStorage.setItem(date,excerJSON);
     }
 }
 
