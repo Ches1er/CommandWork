@@ -15,7 +15,8 @@ class ExcerToLocalStorage{
     static count(ex){
         let percentPerTask = 100/ex.length;
         let sumPercent = 0;
-        let excercise = {Done:[],excerUnit:[],sumPerc:""};
+        let excercise = {date:"",Done:[],excerUnit:[],sumPerc:""};
+        excercise.date =ExcerToLocalStorage.getDate();
         for (let i=0;i<ex.length;i++){
             if (ex[i].children[0].checked){
                 excercise.Done[i]=1;
@@ -31,16 +32,20 @@ class ExcerToLocalStorage{
         ExcerToLocalStorage.putToTheLocalStorage(excercise);
     }
 
-    static putToTheLocalStorage(excercise){
+    static getDate(){
         let dateOptions = {
             year: 'numeric',
             month: 'numeric',
             day: 'numeric',
         }
         let date = new Date().toLocaleString("ru", dateOptions);
-        console.log(date);
+        return date;
+    }
+
+    static putToTheLocalStorage(excercise){
+        let index = new Date();
         let excerJSON = JSON.stringify(excercise);
-        localStorage.setItem(date,excerJSON);
+        localStorage.setItem(index,excerJSON);
     }
 }
 
@@ -60,11 +65,11 @@ class addDelExcercise {
     }
 
     static addExcercise(elem){
-       let $excDiv = $("<div class='excercise'>");
-       let $task = $("<div class='task'>")
-       $task.text(elem.val());
-       $excDiv.append("<input type='checkbox'>",$task)
-       $(".save").before($excDiv);
+        let $excDiv = $("<div class='excercise'>");
+        let $task = $("<div class='task'>")
+        $task.text(elem.val());
+        $excDiv.append("<input type='checkbox'>",$task)
+        $(".save").before($excDiv);
     }
 }
 
