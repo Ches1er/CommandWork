@@ -1,5 +1,42 @@
 "use strict";
 
+//Добавляем упражнения в план тренировок
+
+class AddExc{
+
+    init(){
+        this.$addExcInput = $(".ex");
+        this.$addExcButton = $(".addEx")
+        this.count = 0;
+        this.events();
+    }
+
+    events(){
+        this.$addExcButton.on("click",(e)=>{
+            this.count++;
+            this.addExcToAddExcUnit(this.$addExcInput.val(),this.count)
+        })
+
+    }
+
+    addExcToAddExcUnit(value, count){
+        if (count<8){
+            let $excBlock = $("<div class='excBlock'>");
+            $excBlock.text(value);
+            $(".list").append($excBlock);
+
+        }
+        else{
+            alert("Вам достаточно упражнений");
+            this.$addExcButton.css("display","none")
+        }
+    }
+
+}
+
+/*Добавляем тренировку на Local Storage и формируем
+ее вывод в левый блок */
+
 class ExcerToLocalStorage{
     init(){
         this.excercises = $(".excercise");
@@ -49,6 +86,9 @@ class ExcerToLocalStorage{
     }
 }
 
+/*Выводим тренировку из Local Storage и выводим в
+правый блок  */
+
 class ExcerFromLocalStorage{
 
     init(){
@@ -56,6 +96,8 @@ class ExcerFromLocalStorage{
     }
 
 }
+
+/*Добавление-удаление тренировок*/
 
 class addDelExcercise {
 
@@ -81,11 +123,15 @@ class addDelExcercise {
     }
 }
 
-let $excToLocal = new ExcerToLocalStorage()
-let $excFromLocal = new ExcerFromLocalStorage()
-let $addDel = new addDelExcercise();
+
+let addExc = new AddExc();
+let excToLocal = new ExcerToLocalStorage()
+let excFromLocal = new ExcerFromLocalStorage()
+let addDel = new addDelExcercise();
+
 $(document).ready(()=>{
-    $excToLocal.init();
-    $excFromLocal.init();
-    $addDel.init();
-});
+    addExc.init();
+    excToLocal.init();
+    excFromLocal.init();
+    addDel.init();
+})

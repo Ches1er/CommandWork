@@ -3,27 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style>
-
-        .container{
-            display: inline-flex;
-            flex-flow: column nowrap;
-        }
-
-        .excercises{
-            display: inline-flex;
-            flex-flow: column nowrap;
-        }
-
-        .excercise{
-            display: inline-flex;
-            flex-flow: row nowrap;
-        }
-        .adddel{
-            border: 1px blue solid;
-        }
-
-    </style>
+    <link rel="stylesheet" href="style.css">
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -32,33 +12,37 @@
 </head>
 <body>
 <div class="container">
-    <div class="excercises">
-    <div class="excercise">
-        <input type="checkbox">
-        <div class="task">Подтягивание</div>
-    </div>
-    <div class="excercise">
-        <input type="checkbox">
-        <div class="task">Отжимание</div>
-    </div>
-    <div class="excercise">
-        <input type="checkbox">
-        <div class="task">Пресс</div>
-    </div>
-    <div class="excercise">
-        <input type="checkbox">
-        <div class="task">Приседания</div>
-    </div>
-    <button class="save">save</button>
-    <div class="percent"></div>
-
-    </div>
-
-    <div class="adddel">
-        <input type="text" class = "addExc">
-        <button class = "add">Add</button>
-        <button class = "del">Del</button>
-    </div>
+    <header>your training controller</header>
+    <main>
+        <div class="left bar">
+            <div class="text">Ваши тренировки</div>
+            <div class="trainings"></div>
+        </div>
+        <div class="right bar">
+            <div class="text">Преступайте к тренировке и ставьть отметки с выполненными упражнениями</div>
+            <div class="excercises"></div>
+        </div>
+    </main>
+    <footer></footer>
 </div>
+
+<div class="starttraining">
+    <div class="text1">Введите упражнения для создания тренировки</div>
+    <div class="input">
+        <input type="text" class="ex">
+    </div>
+    <div class="list">
+
+    </div>
+
+    <!--Buttons-->
+
+    <div class="buttons">
+        <button class="addEx">Добавить упражнение</button>
+        <button class="start">Сохранить тренировку</button>
+    </div>
+
+</div>
+<div class="fon"></div>
 </body>
 </html>
