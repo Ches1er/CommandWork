@@ -49,6 +49,8 @@ class ExcerToLocalStorage{
         })
     }
 
+    //Считаем процент выполнения + формируем объект значений
+
     static count(ex){
         let percentPerTask = 100/ex.length;
         let sumPercent = 0;
@@ -69,6 +71,8 @@ class ExcerToLocalStorage{
         ExcerToLocalStorage.putToTheLocalStorage(excercise);
     }
 
+    //Получаем дату в удобном для нас формате
+
     static getDate(){
         let dateOptions = {
             year: 'numeric',
@@ -79,20 +83,97 @@ class ExcerToLocalStorage{
         return date;
     }
 
+/*    Пушим объект значений на Локал Сторадж и вызываем функции для
+    формирования правого и левого блоков*/
+
     static putToTheLocalStorage(excercise){
         let index = new Date();
         let excerJSON = JSON.stringify(excercise);
         localStorage.setItem(index,excerJSON);
+        ExcerToLocalStorage.addTrainingToTheLeftBlock(excercise,index);
+        ExcerToLocalStorage.addTrainingToTheRightBlock(excercise)
+    }
+
+    //Формируем правый блок
+
+    static addTrainingToTheRightBlock(obj){
+
+        //Чистим предыдущие значения
+
+        let $excercisesPrev=$(".container>.excercises")
+        $excercisesPrev.remove();
+
+        //Создаем новые поля
+
+        let $excercisesNext = $("<div class='excercises'>")
+        let $excerciseDate = $("<p class='training_date'>")
+        let $excercisePerc = $("<p class='training_perc'>")
+        $excerciseDate.text(obj.date);
+        $excercisePerc.text("Ваша тренировка выполнена на: " + obj.sumPerc + "%");
+        $excercisesNext.append($excerciseDate,$excercisePerc);
+
+        for (let i=0;i<obj.Done.length;i++){
+
+            //Create fields
+
+            let $excercise = $("<div class='excercise'>");
+            let $image = $("<div class='done_img'>");
+            let $task = $("<div class='task'>");
+
+            //Fill in fields
+
+            if (obj.Done[i]===1)$image.css("backgroundImage","url(http://www.pkicon.com/icons/7447/Checkmark-256.png)")
+            else  $image.css("backgroundImage","url(http://cs5-1.4pda.to/1141855.png)")
+
+            $task.text(obj.excerUnit[i]);
+
+            //Append
+
+            $excercise.append($image,$task);
+            $excercisesNext.append($excercise);
+        }
+
+        $(".container").prepend($excercisesNext);
+    }
+
+    //Добавляем тренировку в левый блок
+
+    static addTrainingToTheLeftBlock(exc,index){
+        let $leftBlockExc = $("<div class='trainings'>")
+        $leftBlockExc.data("index",index);
+        let $leftBlockExcPerc = $("<p>");
+        let $leftBlockExcDate = $("<p>");
+        $leftBlockExcDate.text(exc.date)
+        $leftBlockExcPerc.text(exc.sumPerc+"%");
+        $leftBlockExc.append($leftBlockExcDate,$leftBlockExcPerc);
+        $(".left_block").append($leftBlockExc);
+
+        //Activate left block
+
+        let $excFromLocal = new ExcerFromLocalStorage()
+        $excFromLocal.init();
+
     }
 }
 
-/*Выводим тренировку из Local Storage и выводим в
-правый блок  */
+/*Выводим тренировку из Local Storage и отправляем результаты в правый блок*/
 
 class ExcerFromLocalStorage{
 
     init(){
+        this.$trainings = $(".trainings")
+        this.event(this.$trainings.data("index"));
+    }
 
+    event(index){
+        this.$trainings.on("click",(e)=>{
+            console.log(ExcerFromLocalStorage.getFromLocalStorage(index));
+        })
+    }
+
+    static getFromLocalStorage(index){
+        let trainingUnit = JSON.parse(localStorage.getItem(index));
+        return trainingUnit;
     }
 
 }
@@ -126,12 +207,10 @@ class addDelExcercise {
 
 let addExc = new AddExc();
 let excToLocal = new ExcerToLocalStorage()
-let excFromLocal = new ExcerFromLocalStorage()
 let addDel = new addDelExcercise();
 
 $(document).ready(()=>{
     addExc.init();
     excToLocal.init();
-    excFromLocal.init();
     addDel.init();
 })
