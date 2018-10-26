@@ -49,6 +49,14 @@ class ExcerToLocalStorage{
     }
 }
 
+class ExcerFromLocalStorage{
+
+    init(){
+
+    }
+
+}
+
 class addDelExcercise {
 
     init(){
@@ -73,9 +81,11 @@ class addDelExcercise {
     }
 }
 
-let $percent = new ExcerToLocalStorage()
+let $excToLocal = new ExcerToLocalStorage()
+let $excFromLocal = new ExcerFromLocalStorage()
 let $addDel = new addDelExcercise();
 $(document).ready(()=>{
-    $percent.init();
+    $excToLocal.init();
+    $excFromLocal.init();
     $addDel.init();
 });
