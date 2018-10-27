@@ -109,7 +109,21 @@ footer{
     padding: 20px;
     background-color: beige;
     color: rgb(78,69,62);
+
+    /*Fix*/
+
+    display: inline-flex;
+    flex-flow: column nowrap;
+
 }
+
+    /*Fix*/
+
+.buttons{
+    display: inline-flex;
+    flex-flow: row nowrap;
+}
+
 .text1{
     font-size: 20px;
     text-align: center;

@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="style.css">
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
     <script src="main.js"></script>
 </head>
 <body>
-
 <div class="container">
     <header>your training controller</header>
     <main>
@@ -28,15 +30,19 @@
     <div class="text1">Введите упражнения для создания тренировки</div>
     <div class="input">
         <input type="text" class="ex">
-        <button class="addEx">Добавить упражнение</button>
     </div>
     <div class="list">
 
     </div>
-    <div class="start"><button class="startbtn">Start</button></div>
+
+    <!--Buttons-->
+
+    <div class="buttons">
+        <button class="addEx">Добавить упражнение</button>
+        <button class="start">Сохранить тренировку</button>
+    </div>
 
 </div>
 <div class="fon"></div>
-
 </body>
 </html>
