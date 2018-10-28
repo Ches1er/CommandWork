@@ -1,0 +1,253 @@
+body{
+    position: relative;
+    background: rgb(88,79,70);
+
+}
+.container {
+    width: 1024px;
+    height: 780px;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdqmioHcTMI5yugctxLG6m6vbgOCe7nS6DOVdkb7z-jSh9jFcv");
+    background-repeat: no-repeat;
+    background-size: contain;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0 auto;
+}
+header{
+    color: white;
+    font-size: 50px;
+    font-family: Impact;
+    font-style: italic;
+    text-shadow: rosybrown 2px 0 ;
+    margin-left: 100px;
+    padding: 20px;
+}
+main{
+    padding: 10px;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 560px;
+
+}
+.bar{
+    background: rgb(78, 61, 51);
+    margin: 10px;
+    border-radius: 5px;
+    opacity: 0.8;
+    padding: 10px 20px;
+}
+.left{
+    width: 300px;
+    display: none;
+
+}
+.text{
+    height: 70px;
+    line-height: 70px;
+}
+.left_block{
+    width: 270px;
+    height: 410px;
+    background-color: white;
+    margin: 10px 0;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+.newTraining{
+    border-radius: 5px;
+    background-color: rgb(78, 61, 51);
+    color: white;
+    line-height: 20px;
+
+}
+.trainings{
+    width: 230px;
+    background-color: rgb(78, 61, 51);
+    color: white;
+    border-radius: 5px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 2px;
+}
+.trainings p{
+    padding: 3px;
+}
+
+.right{
+    width: 634px;
+    display: none;
+
+}
+.text{
+    color: white;
+    font-size: 30px;
+    text-align: center;
+}
+.excercises{
+    width: 594px;
+    height: 410px;
+    background-color: white;
+    margin: 10px 0;
+    border-radius: 5px;
+    padding: 10px;
+    overflow: auto;
+
+}
+.doneTraining{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content:space-between;
+    background-color: rgb(78, 61, 51);
+    border-radius: 5px;
+    color: white;
+    width: 594px;
+    line-height: 15px;
+    font-weight: bolder;
+}
+.addAndSave{
+    width: 594px;
+    height: 30px;
+    justify-content: space-between;
+}
+.addAndSave button{
+    line-height: 30px;
+    margin-left: 10px;
+    border-radius: 5px;
+    background-color: rgb(78, 61, 51);
+    color: white;
+}
+.addAndSave input{
+    width: 350px;
+    border-radius: 5px;
+    border: 2px solid rgb(78, 61, 51);
+    line-height: 30px;
+    text-align: center;
+}
+.excercise{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin: 9px 0;
+    padding: 5px;
+    height: 20px;
+    line-height: 20px;
+    border: 2px solid rgb(78, 61, 51);
+    border-radius: 5px;
+}
+.checkbox{
+    margin: 0 20px;
+}
+.excercise button{
+    margin: 0 20px;
+    width: 40px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: rgb(78, 61, 51);
+    color: white;
+}
+footer{
+    width: 100%;
+    height: 100px;
+    background-color: rgb(88,79,70);
+}
+.starttraining{
+    z-index: 1000;
+    margin: 0 25%;
+    top: 20%;
+    right: 25%;
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    padding: 20px;
+    background-color: beige;
+    color: rgb(78,69,62);
+
+    /*Fix*/
+
+    display: inline-flex;
+    flex-flow: column nowrap;
+
+}
+
+/*Fix*/
+
+.buttons{
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+}
+
+.text1{
+    font-size: 20px;
+    text-align: center;
+}
+.input{
+    text-align: center;
+
+
+
+}
+.starttraining input{
+    line-height: 30px;
+    width: 100%;
+    border-radius: 5px;
+    margin: 15px 0;
+    text-align: center;
+
+
+}
+.buttons button{
+    line-height: 30px;
+    border-radius: 5px;
+}
+.list{
+    width: 100%;
+    height: 70%;
+}
+
+.start{
+    display: flex;
+    justify-content: flex-end;
+
+}
+.start button{
+    line-height: 30px;
+    border-radius: 5px;
+    width: 60px;
+}
+.newExc{
+    width: 100%;
+    height: 28px;
+    border: 3px solid rosybrown;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+.excBlock{
+    width: 100%;
+    height: 28px;
+    border: 3px solid rosybrown;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+.fon{
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background:black;
+    opacity: 0.8;
+}
+
+
+
