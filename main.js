@@ -20,34 +20,49 @@ class AddExc{
 
     }
 
+    //Добавляем упражнения в стартовую тренировку
+
     addExcToAddExcUnit(value, count){
         if (count<8){
             let $excBlock = $("<div class='excBlock'>");
             $excBlock.text(value);
             $(".list").append($excBlock);
-            this.formEx(value);
+            AddExc.formEx(value);
             this.$addExcInput.val("")
-
         }
         else{
             alert("Вам достаточно упражнений");
             this.$addExcButton.css("display","none")
         }
     }
-    //прячим меню ввода и показуем основную страницу
+
+    //Прячем меню ввода и показуем основную страницу
+
     hideAndShow(){
         $(".start").on("click",()=>{
             $(".fon").hide(1000);
             $(".starttraining").hide(1000);
             $(".right").show(2000);
             $(".left").show(2000);
+
+            //Активируем добавление основной расчет % выполнения и добавление упражнения на Локал Сторадж
+
+            let excToLocal = new ExcerToLocalStorage();
+            excToLocal.init();
         })
     }
-    formEx(value){
-        $(".excercises").prepend("<div class='excercise'><input type='checkbox'><div class='task'></div><button class='del'>Del</button></div>");
-        $(".task").text(value);
-    }
 
+    // Добавляем блоки упражнений в правый блок
+
+    static formEx(value){
+        let $excercise = $("<div class='excercise'>");
+        let $checkbox = $("<input type='checkbox'>");
+        let $task = $("<div class='task'>");
+        let $del_button = $("<button class='del'>Del</button>")
+        $task.text(value);
+        $excercise.append($checkbox,$task,$del_button);
+        $(".excercises").append($excercise);
+    }
 
 }
 
@@ -56,22 +71,19 @@ class AddExc{
 
 class ExcerToLocalStorage{
     init(){
-        this.excercises = $(".excercise");
         this.events();
     }
 
     events(){
-        $(".save").on("click",(e)=>{
-            ExcerToLocalStorage.count(this.excercises);
-            $(".addAndSave").hide()
-            //нужно убрать блок с калассом addAndSave и на его место показать информацию с % doneTraining
+        $(".save").on("click",()=>{
+            ExcerToLocalStorage.count($(".excercise"));
         })
     }
 
     //Считаем процент выполнения + формируем объект значений
 
     static count(ex){
-        let percentPerTask = 100/ex.length;
+        let percentPerTask = Math.floor(100/ex.length);
         let sumPercent = 0;
         let excercise = {date:"",Done:[],excerUnit:[],sumPerc:""};
         excercise.date =ExcerToLocalStorage.getDate();
@@ -119,7 +131,7 @@ class ExcerToLocalStorage{
 
         //Чистим предыдущие значения
 
-        let $excercisesPrev=$(".excercises>.doneTraining");
+        let $excercisesPrev=$(".excercises");
         $excercisesPrev.remove();
 
         //Создаем новые поля
@@ -134,13 +146,12 @@ class ExcerToLocalStorage{
 
         for (let i=0;i<obj.Done.length;i++){
 
-            //Create fields
-
+            //Создаем поля упражнений
             let $excercise = $("<div class='excercise'>");
             let $image = $("<div class='done_img'>");
             let $task = $("<div class='task'>");
 
-            //Fill in fields
+            //Заполняем поля
 
             if (obj.Done[i]===1)$image.css("backgroundImage","url(http://www.pkicon.com/icons/7447/Checkmark-256.png)");
             else  $image.css("backgroundImage","url(http://cs5-1.4pda.to/1141855.png)");
@@ -152,28 +163,24 @@ class ExcerToLocalStorage{
             $excercise.append($image,$task);
             $excercisesNext.append($excercise);
         }
-
-        $(".excercises").append($excercisesNext);
-
+        $(".right").append($excercisesNext);
     }
 
     //Добавляем тренировку в левый блок
 
     static addTrainingToTheLeftBlock(exc,index){
         let $leftBlockExc = $("<div class='trainings'>");
-        $leftBlockExc.data("index",index);
-        let $leftBlockExcPerc = $("<p>");
-        let $leftBlockExcDate = $("<p>");
-        $leftBlockExcDate.text(exc.date);
-        $leftBlockExcPerc.text(exc.sumPerc+"%");
-        $leftBlockExc.append($leftBlockExcDate,$leftBlockExcPerc);
+        $leftBlockExc.attr("index",index);
+        $leftBlockExc.text(exc.date+ ": " + exc.sumPerc+"%")
         $(".left_block").append($leftBlockExc);
 
         //Activate left block
 
         let $excFromLocal = new ExcerFromLocalStorage();
-        $excFromLocal.init();
+        $excFromLocal.event();
 
+        let newTraining = new addNewTraining();
+        newTraining.init(index);
     }
 }
 
@@ -181,31 +188,25 @@ class ExcerToLocalStorage{
 
 class ExcerFromLocalStorage{
 
-    init(){
-        this.$trainings = $(".trainings");
-        this.event(this.$trainings.data("index"));
-    }
-
-    event(index){
-        this.$trainings.on("click",(e)=>{
-            console.log(ExcerFromLocalStorage.getFromLocalStorage(index));
+    event(){
+        $(".trainings").on("click",(e)=>{
+            let index = e.target.getAttribute("index");
+            ExcerFromLocalStorage.getFromLocalStorage(index);
         })
     }
 
     static getFromLocalStorage(index){
         let trainingUnit = JSON.parse(localStorage.getItem(index));
-        return trainingUnit;
+        ExcerToLocalStorage.addTrainingToTheRightBlock(trainingUnit)
     }
-
 }
 
-/*Добавление-удаление тренировок*/
+/*Добавление-удаление упражнений*/
 
 class addDelExcercise {
 
     init(){
         this.addButton = $(".add");
-        this.delButton = $(".del");
         this.addExcInput = $(".addExc");
         this.events();
     }
@@ -227,19 +228,52 @@ class addDelExcercise {
         let $btn=$("<button class='del'>Del</button>");
         $task.text(elem.val());
         $excDiv.append("<input type='checkbox'>",$task,$btn);
-        $(".addAndSave").before($excDiv);//добавить новое упр в конец списка
+        $(".addAndSave").after($excDiv);//добавить новое упр в конец списка
         elem.val("");
-        //$(".save").before($excDiv);
+    }
+}
+
+/*Добавление новой тренировки*/
+
+class addNewTraining{
+    init(index){
+        this.event(index);
+    }
+    event(index){
+        $(".newTraining").on("click",(e)=>{
+            let $excercisesPrev=$(".excercises");
+            $excercisesPrev.remove();
+            addNewTraining.rightBarNewTraining(index);
+        })
+    }
+    static rightBarNewTraining(index){
+        let $rightBarTraining = $("<div class='excercises'>");
+        let $addAndSave = $("<div class='addAndSave'>");
+        $addAndSave.append('<input type="text" class="addExc" placeholder="добавить новое упражнение">',
+            '<button class="add">Добавить</button>','<button class="save">Сохранить тренировку</button>')
+        $rightBarTraining.append($addAndSave);
+        $(".right").append($rightBarTraining);
+
+        let trainingUnit = JSON.parse(localStorage.getItem(index));
+        for (let i=0;i<trainingUnit.Done.length;i++){
+            AddExc.formEx(trainingUnit.excerUnit[i]);
+        }
+
+        /*        Заново инициируем классы удаления-добавления упражнений
+                и добавления тренировки на сервер*/
+
+        let addDel = new addDelExcercise();
+        addDel.init();
+        let excToLocal = new ExcerToLocalStorage();
+        excToLocal.init();
     }
 }
 
 
 let addExc = new AddExc();
-let excToLocal = new ExcerToLocalStorage();
 let addDel = new addDelExcercise();
 
 $(document).ready(()=>{
     addExc.init();
-    excToLocal.init();
     addDel.init();
 });
