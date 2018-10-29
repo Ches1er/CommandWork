@@ -77,7 +77,7 @@ class ExcerToLocalStorage{
     events(){
         $(".save").on("click",()=>{
             ExcerToLocalStorage.count($(".excercise"));
-        })
+            })
     }
 
     //Считаем процент выполнения + формируем объект значений
@@ -136,13 +136,12 @@ class ExcerToLocalStorage{
 
         //Создаем новые поля
 
-        let $excercisesNext = $("<div class='doneTraining'>");//поменяла с excercises на doneTraining
-        let $excerciseDate = $("<p class='training_date'>");
-        let $excercisePerc = $("<p class='training_perc'>");
+        let $excercisesNext = $("<div class='excercises'>")
+        let $excerciseDate = $("<p class='training_date'>")
+        let $excercisePerc = $("<p class='training_perc'>")
         $excerciseDate.text(obj.date);
         $excercisePerc.text("Ваша тренировка выполнена на: " + obj.sumPerc + "%");
         $excercisesNext.append($excerciseDate,$excercisePerc);
-        //$(".excercises").append($excercisesNext);
 
         for (let i=0;i<obj.Done.length;i++){
 
@@ -258,9 +257,8 @@ class addNewTraining{
         for (let i=0;i<trainingUnit.Done.length;i++){
             AddExc.formEx(trainingUnit.excerUnit[i]);
         }
-
-        /*        Заново инициируем классы удаления-добавления упражнений
-                и добавления тренировки на сервер*/
+/*        Заново инициируем классы удаления-добавления упражнений
+        и добавления тренировки на сервер*/
 
         let addDel = new addDelExcercise();
         addDel.init();
@@ -268,7 +266,6 @@ class addNewTraining{
         excToLocal.init();
     }
 }
-
 
 let addExc = new AddExc();
 let addDel = new addDelExcercise();
