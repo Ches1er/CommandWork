@@ -121,7 +121,7 @@ main{
     color: white;
 }
 .addAndSave input{
-    width: 350px;
+    width: 330px;
     border-radius: 5px;
     border: 2px solid rgb(78, 61, 51);
     line-height: 30px;
@@ -249,5 +249,11 @@ footer{
     opacity: 0.8;
 }
 
+.done_img{
+    width: 20px;
+    height: 20px;
+    background-size: 20px;
+
+}
 
 
