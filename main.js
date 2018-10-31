@@ -183,7 +183,8 @@ class ExcerToLocalStorage{
     }
 }
 
-/*Выводим тренировку из Local Storage и отправляем результаты в правый блок*/
+/*Выводим тренировку из Local Storage и
+отправляем результаты в правый блок*/
 
 class ExcerFromLocalStorage{
 

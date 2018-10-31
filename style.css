@@ -43,7 +43,7 @@ main{
 }
 .text{
     height: 70px;
-    line-height: 70px;
+    line-height: 30px;
 }
 .left_block{
     width: 270px;
@@ -84,7 +84,7 @@ main{
 }
 .text{
     color: white;
-    font-size: 30px;
+    font-size: 20px;
     text-align: center;
 }
 .excercises{
